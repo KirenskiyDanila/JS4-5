@@ -1,11 +1,6 @@
 import fetchJsonp from 'fetch-jsonp';
-import axios from 'axios';
 import credentials from '@/credentials.json';
 
-const config = {
-    headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
-    timeout: 30000,
-};
 const access_token = credentials.access_token;
 
 export class Api {
@@ -20,32 +15,26 @@ export class Api {
             });
     }
 
-    static async post(url, data, configure) {
-        return new Promise((resolve, reject) => {
-            axios
-                .post(url, data, { ...config, ...configure })
-                .then(
-                    response => resolve(response),
-                    err => {
-                        reject(err);
-                    },
-                )
-                .catch(error => reject(error));
+    static async post(url, data) {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': 'http://localhost/JSBack/public/',
+                "Access-Control-Allow-Methods" : 'POST',
+            },
+            body: data
+        });
+
+        response.json().then(data => {
+            return JSON.stringify(data);
         });
     }
 
-    static async get(url, params) {
-        return new Promise((resolve, reject) => {
-            axios
-                .get(url, { ...config, params })
-                .then(
-                    response => resolve(response.data),
-                    err => {
-                        reject(err);
-                    },
-                )
-                .catch(error => reject(error));
-        });
+    static async get(url) {
+        let response = await fetch(url);
+        return await response.json();
     }
 
     static async getUniversities(query, cityId) {

@@ -1,11 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import MainResume from "@/components/MainResume";
+import ResumeList from "@/components/ResumeList";
+import EditResume from "@/components/EditResume";
 
 const routes = [
   {
-    path: '/',
+    path: '/home',
     name: 'home',
-    component: MainResume
+    component: ResumeList
   },
   {
     path: '/add',
@@ -13,9 +15,10 @@ const routes = [
     component: MainResume
   },
   {
-    path: '/edit/{id}',
-    name: 'home',
-    component: MainResume
+    path: '/edit/:id',
+    props: true,
+    name: 'edit',
+    component: EditResume
   },
   {
     path: '/about',

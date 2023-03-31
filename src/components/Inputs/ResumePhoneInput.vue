@@ -2,9 +2,9 @@
   <div class="input-group mb-3">
     <div class="input-group-text font-weight-bold font-monospace fs-2">{{ title }}</div>
     <input type="text" class="form-control fs-2" v-model="propModel" @input="onChange()" aria-describedby="basic-addon1">
-    <div class="text-danger" v-if="phoneValidationFailed">Неправильный формат номера телефона!</div>
-
   </div>
+  <div class="text-danger" v-if="phoneValidationFailed">Неправильный формат номера телефона!</div>
+
 </template>
 
 <script>
