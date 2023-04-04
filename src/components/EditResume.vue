@@ -194,7 +194,7 @@ export default {
       this.resumeData = await ResumeApi.getResume(this.id);
     },
     // Запрос на изменение резюме
-    sendResume() {
+    async sendResume() {
       let resumeToSend = {};
       resumeToSend.profession = this.values.profession
       resumeToSend.telephone = this.values.phone
@@ -209,9 +209,12 @@ export default {
       resumeToSend.salary = this.values.salary
       resumeToSend.status = this.values.status
       resumeToSend.optional = this.values.education.optionalEducations
-      let jsonResume = JSON.stringify(resumeToSend);
+      let jsonResume = JSON.stringify(resumeToSend)
 
-      ResumeApi.editResume(this.id, jsonResume)
+      await ResumeApi.editResume(this.id, jsonResume)
+
+      window.location.href = 'http://localhost:8081/home'
+
     }
   }
 
