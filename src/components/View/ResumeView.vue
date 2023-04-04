@@ -15,17 +15,12 @@
       <div class="m-2 text-md-start font-monospace font-weight-bold fs-2 w-75 text-wrap" v-text="data.education.specialization.resumeValue"></div>
       <div class="m-2 text-md-start font-monospace font-weight-bold fs-2 w-75 text-wrap" v-text="data.education.endYear.resumeValue"></div>
     </div>
-    <div class="input-group p-3 border border-2 m-2 border-success rounded-5 text-wrap" v-if="data.education.secondEducationEnabled">
-      <div class="m-2 text-md-start font-monospace font-weight-bold fs-2 w-75 text-wrap" v-text="data.optionalEducation.institution.resumeValue"></div>
-      <div class="m-2 text-md-start font-monospace font-weight-bold fs-2 w-75 text-wrap" v-text="data.optionalEducation.faculty.resumeValue"></div>
-      <div class="m-2 text-md-start font-monospace font-weight-bold fs-2 w-75 text-wrap" v-text="data.optionalEducation.specialization.resumeValue"></div>
-      <div class="m-2 text-md-start font-monospace font-weight-bold fs-2 w-75 text-wrap" v-text="data.optionalEducation.endYear.resumeValue"></div>
-    </div>
-    <div class="input-group p-3 border border-2 m-2 border-success rounded-5 text-wrap" v-if="data.optionalEducation.secondEducationEnabled">
-      <div class="m-2 text-md-start font-monospace font-weight-bold fs-2 w-75 text-wrap" v-text="data.thirdEducation.institution.resumeValue"></div>
-      <div class="m-2 text-md-start font-monospace font-weight-bold fs-2 w-75 text-wrap" v-text="data.thirdEducation.faculty.resumeValue"></div>
-      <div class="m-2 text-md-start font-monospace font-weight-bold fs-2 w-75 text-wrap" v-text="data.thirdEducation.specialization.resumeValue"></div>
-      <div class="m-2 text-md-start font-monospace font-weight-bold fs-2 w-75 text-wrap" v-text="data.thirdEducation.endYear.resumeValue"></div>
+    <div class="input-group p-3 border border-2 m-2 border-success rounded-5 text-wrap" v-for="optionalEducation in data.education.optionalEducations"
+      v-bind:key="optionalEducation">
+      <div class="m-2 text-md-start font-monospace font-weight-bold fs-2 w-75 text-wrap" v-text="optionalEducation.education.institution.resumeValue"></div>
+      <div class="m-2 text-md-start font-monospace font-weight-bold fs-2 w-75 text-wrap" v-text="optionalEducation.education.faculty.resumeValue"></div>
+      <div class="m-2 text-md-start font-monospace font-weight-bold fs-2 w-75 text-wrap" v-text="optionalEducation.education.specialization.resumeValue"></div>
+      <div class="m-2 text-md-start font-monospace font-weight-bold fs-2 w-75 text-wrap" v-text="optionalEducation.education.endYear.resumeValue"></div>
     </div>
     <div class="m-2 text-md-start font-monospace font-weight-bold fs-2 text-wrap" v-text="data.salary.resumeValue"></div>
     <div class="m-2 text-md-start font-monospace font-weight-bold fs-2 text-wrap text-break" v-text="data.skills.resumeValue"></div>

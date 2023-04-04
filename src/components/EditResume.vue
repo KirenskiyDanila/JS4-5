@@ -4,6 +4,36 @@
 </template>
 
 <script>
+
+
+const optionalEducation =  {
+  education : {
+    value: "Среднее",
+    resumeValue: "Среднее образование",
+    institution: {
+      title: 'Учебное заведение',
+      value: '',
+      resumeValue: 'Учебное заведение',
+      cityId: 1
+    },
+    faculty: {
+      title: 'Факультет',
+      value: '',
+      resumeValue: 'Факультет'
+    },
+    specialization: {
+      title: 'Специализация',
+      value: '',
+      resumeValue: 'Специализация'
+    },
+    endYear: {
+      title: 'Год окончания',
+      value: '',
+      resumeValue: 'Год окончания'
+    }
+  },
+}
+
 import {ResumeApi} from "@/components/Api/ResumeApi";
 import BaseResume from "@/components/BaseResume";
 
@@ -98,104 +128,65 @@ export default {
             value: '',
             resumeValue: 'Год окончания'
           },
+          optionalEducations: []
         },
-        optionalEducation: {
-          value: "Среднее",
-          resumeValue: "Среднее образование",
-          showEducation: false,
-          secondEducationEnabled: false,
-          institution: {
-            title: 'Учебное заведение',
-            value: '',
-            resumeValue: 'Учебное заведение',
-            cityId: 1
-          },
-          faculty: {
-            title: 'Факультет',
-            value: '',
-            resumeValue: 'Факультет'
-          },
-          specialization: {
-            title: 'Специализация',
-            value: '',
-            resumeValue: 'Специализация'
-          },
-          endYear: {
-            title: 'Год окончания',
-            value: '',
-            resumeValue: 'Год окончания'
-          },
-        },
-          thirdEducation: {
-            value: "Среднее",
-            resumeValue : "Среднее образование",
-            showEducation: false,
-            institution: {
-              title: 'Учебное заведение',
-              value: '',
-              resumeValue: 'Учебное заведение',
-              cityId: 1
-            },
-            faculty: {
-              title: 'Факультет',
-              value: '',
-              resumeValue: 'Факультет'
-            },
-            specialization: {
-              title: 'Специализация',
-              value: '',
-              resumeValue: 'Специализация'
-            },
-            endYear: {
-              title: 'Год окончания',
-              value: '',
-              resumeValue: 'Год окончания'
-            },
-          }
       }
     }
   },
   async mounted() {
     await this.getResume();
     const result = this.resumeData["result"];
-    console.log(result);
     this.values.profession.value = result["profession"]
+    this.values.profession.resumeValue = this.values.profession.value
     this.values.phone.value = result["telephone"]
+    this.values.phone.resumeValue = this.values.phone.value
     this.values.email.value = result["email"]
+    this.values.email.resumeValue = this.values.email.value
     this.values.about.value = result["about"]
+    this.values.about.resumeValue = this.values.about.value
     this.values.city.value = result["city"]
+    this.values.city.resumeValue = this.values.city.value
     this.values.name.value = result["name"]
+    this.values.name.resumeValue = this.values.name.value
     this.values.birthdate.value = result["dateOfBirth"]
+    this.values.birthdate.resumeValue = this.values.birthdate.value
     this.values.photo.value = result["photo"]
+    this.values.photo.resumeValue = this.values.photo.value
     this.values.skills.value = result["skills"]
+    this.values.skills.resumeValue = this.values.skills.value
     this.values.salary.value = result["salary"]
+    this.values.salary.resumeValue = this.values.salary.value
     if (result["optional"] !== null) {
       this.values.education.showEducation = true;
       this.values.education.institution.value = result["optional"][0]['institution'];
+      this.values.education.institution.resumeValue = this.values.education.institution.value
       this.values.education.faculty.value = result["optional"][0]['faculty'];
+      this.values.education.faculty.resumeValue = this.values.education.faculty.value
       this.values.education.specialization.value = result["optional"][0]['specialization'];
+      this.values.education.specialization.resumeValue = this.values.education.specialization.value
       this.values.education.endYear.value = result["optional"][0]['endYear'];
+      this.values.education.endYear.resumeValue = this.values.education.endYear.value
+
+    }
+    for (let i = 1; i < result["optional"].length; i++) {
+      this.values.education.secondEducationEnabled = true;
+      this.values.education.optionalEducations.push(JSON.parse(JSON.stringify(optionalEducation)))
+      this.values.education.optionalEducations[i-1].education.institution.value = result["optional"][i]['institution'];
+      this.values.education.optionalEducations[i-1].education.institution.resumeValue = this.values.education.institution.value
+      this.values.education.optionalEducations[i-1].education.faculty.value = result["optional"][i]['faculty'];
+      this.values.education.optionalEducations[i-1].education.faculty.resumeValue = this.values.education.faculty.value
+      this.values.education.optionalEducations[i-1].education.specialization.value = result["optional"][i]['specialization'];
+      this.values.education.optionalEducations[i-1].education.specialization.resumeValue = this.values.education.specialization.value
+      this.values.education.optionalEducations[i-1].education.endYear.value = result["optional"][i]['endYear'];
+      this.values.education.optionalEducations[i-1].education.endYear.resumeValue = this.values.education.endYear.value
     }
     this.values.education.value = result["education"]
-
-    if (result["optional"].length > 1) {
-      this.values.education.secondEducationEnabled = true;
-      this.values.optionalEducation.showEducation = true;
-      this.values.optionalEducation.institution.value = result["optional"][1]['institution'];
-      this.values.optionalEducation.faculty.value = result["optional"][1]['faculty'];
-      this.values.optionalEducation.specialization.value = result["optional"][1]['specialization'];
-      this.values.optionalEducation.endYear.value = result["optional"][1]['endYear'];
-    }
-    if (result["optional"].length > 2) {
-      this.values.optionalEducation.secondEducationEnabled = true;
-      this.values.thirdEducation.showEducation = true;
-      this.values.thirdEducation.institution.value = result["optional"][2]['institution'];
-      this.values.thirdEducation.faculty.value = result["optional"][2]['faculty'];
-      this.values.thirdEducation.specialization.value = result["optional"][2]['specialization'];
-      this.values.thirdEducation.endYear.value = result["optional"][2]['endYear'];
-    }
+    this.values.education.resumeValue = this.values.education.value
     this.values.status.value = result["status"]
+    this.values.status.resumeValue = this.values.status.value
     this.values.profession.value = result["profession"]
+    this.values.profession.resumeValue = this.values.profession.value
+
   },
   methods: {
     // запрос на получение резюме
@@ -213,12 +204,11 @@ export default {
       resumeToSend.name = this.values.name
       resumeToSend.education = this.values.education
       resumeToSend.dateOfBirth = this.values.birthdate
-      resumeToSend.photo = this.values.photo;
-      resumeToSend.skills = this.values.skills;
-      resumeToSend.salary = this.values.salary;
-      resumeToSend.status = this.values.status;
-      resumeToSend.optional = this.values.optionalEducation;
-      resumeToSend.thirdEducation = this.values.thirdEducation;
+      resumeToSend.photo = this.values.photo
+      resumeToSend.skills = this.values.skills
+      resumeToSend.salary = this.values.salary
+      resumeToSend.status = this.values.status
+      resumeToSend.optional = this.values.education.optionalEducations
       let jsonResume = JSON.stringify(resumeToSend);
 
       ResumeApi.editResume(this.id, jsonResume)

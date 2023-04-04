@@ -4,6 +4,8 @@
 </template>
 
 <script>
+
+
 import {ResumeApi} from "@/components/Api/ResumeApi";
 import BaseResume from "@/components/BaseResume";
 export default {
@@ -96,60 +98,8 @@ export default {
             value: '',
             resumeValue: 'Год окончания'
           },
+          optionalEducations: []
         },
-        optionalEducation: {
-          value: "Среднее",
-          secondEducationEnabled: false,
-          resumeValue : "Среднее образование",
-          showEducation: false,
-          institution: {
-            title: 'Учебное заведение',
-            value: '',
-            resumeValue: 'Учебное заведение',
-            cityId: 1
-          },
-          faculty: {
-            title: 'Факультет',
-            value: '',
-            resumeValue: 'Факультет'
-          },
-          specialization: {
-            title: 'Специализация',
-            value: '',
-            resumeValue: 'Специализация'
-          },
-          endYear: {
-            title: 'Год окончания',
-            value: '',
-            resumeValue: 'Год окончания'
-          },
-        },
-        thirdEducation: {
-          value: "Среднее",
-          resumeValue : "Среднее образование",
-          showEducation: false,
-          institution: {
-            title: 'Учебное заведение',
-            value: '',
-            resumeValue: 'Учебное заведение',
-            cityId: 1
-          },
-          faculty: {
-            title: 'Факультет',
-            value: '',
-            resumeValue: 'Факультет'
-          },
-          specialization: {
-            title: 'Специализация',
-            value: '',
-            resumeValue: 'Специализация'
-          },
-          endYear: {
-            title: 'Год окончания',
-            value: '',
-            resumeValue: 'Год окончания'
-          },
-        }
       }
     }
   },
@@ -165,13 +115,11 @@ export default {
       resumeToSend.name = this.values.name
       resumeToSend.education = this.values.education
       resumeToSend.dateOfBirth = this.values.birthdate
-      resumeToSend.photo = this.values.photo;
-      resumeToSend.skills = this.values.skills;
-      resumeToSend.salary = this.values.salary;
-      resumeToSend.status = this.values.status;
-      resumeToSend.optional = this.values.optionalEducation;
-      resumeToSend.thirdEducation = this.values.thirdEducation;
-
+      resumeToSend.photo = this.values.photo
+      resumeToSend.skills = this.values.skills
+      resumeToSend.salary = this.values.salary
+      resumeToSend.status = this.values.status
+      resumeToSend.optional = this.values.education.optionalEducations
       let jsonResume = JSON.stringify(resumeToSend);
 
       ResumeApi.postResume(jsonResume)

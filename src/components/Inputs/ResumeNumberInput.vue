@@ -8,7 +8,7 @@
 <script>
 
 export default {
-  name: 'ResumeSalaryInput',
+  name: 'ResumeNumberInput',
   itemList: [],
   props: ['value', 'title', 'resumeValue'],
   computed: {
