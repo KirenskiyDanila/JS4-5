@@ -30,8 +30,8 @@
 
       </div>
       <div class="col-sm border-2 border p-2 m-2">
-        Отказано ({{ this.resumeStatusLists['Отказано'].length }})
-        <draggable :list="resumeStatusLists['Отказано']" :component-data="{ status: 'Отказано' }" group="cards" itemKey="id"
+        Отказ ({{ this.resumeStatusLists['Отказ'].length }})
+        <draggable :list="resumeStatusLists['Отказ']" :component-data="{ status: 'Отказ' }" group="cards" itemKey="id"
                    @end="sendStatusUpdate">
           <template #item="{element}">
             <list-item v-model:name="element.name" v-model:id="element.id" v-model:src="element.photo" v-model:age="element.dateOfBirth" v-model:profession="element.profession"></list-item>
@@ -54,7 +54,7 @@ export default {
   components: {ListItem, draggable},
   data() {
     return {
-      options: ['Новый', 'Назначено собеседование', 'Принят', 'Отказано'],
+      options: ['Новый', 'Назначено собеседование', 'Принят', 'Отказ'],
       resumeStatusLists: {},
       itemList: {}
     }
